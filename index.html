@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>音乐播放器</title>
+		<style type="text/css">
+			body{
+				background-color: rgb(130,0,0);
+				color: #fff;				
+			}
+			.center{
+				width: 1000px;
+				margin: auto;
+			}
+			#bg{
+				width: 1000px;
+				height: 700px;
+				position: absolute;
+				top: 100px;
+				background: url(img/bg.jpg) no-repeat;
+				background-size: 100% 100%;
+				box-shadow: 0 0 20px rgb(170,0,0);
+			}
+			#bg>div{
+				width: 100%;
+				height: 100%;
+				background-color: rgba(197,0,0,0.4)
+			}
+			#control{
+				padding: 10px 0;
+				height: 50px;
+				width: 100%;
+				background-color: rgba(0,0,0,0.5);
+				position: absolute;
+				bottom: 0;
+			}
+			.lest,.next{
+				width: 36px;
+				height: 36px;
+				background-color: transparent;
+				border: none;
+				background-image: url(img/btn.png);
+				background-repeat: no-repeat;
+				margin: 0 8px;
+			}
+			.lest{
+				background-position: 0 -143px;
+				margin-left: 18px;
+			}
+			.lest:hover{
+				background-position: -36px -143px;
+			}
+			.next{
+				background-position: -144px -143px;
+			}
+			.next:hover{ 
+				background-position: -180px -143px;
+			}
+			#playBtn{
+				width: 48px;
+				height: 48px;
+				border: none;
+				background-color: transparent;
+				background-image: url(img/btn.png);
+				background-repeat: no-repeat;
+				background-position: -6px -6px;
+				border-radius: 50%;
+			}
+			#playBtn:hover{
+				box-shadow: 0 0 3px #fff;
+			}
+			.tb{
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				position: absolute;
+				left: 30px;
+				bottom: 5px;
+			}
+			#musicName{
+				display: inline-block;
+				height: 20px;
+				width: 150px;
+				margin-left: 100px;
+				margin-bottom: -4px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			#divRight{
+				padding: 5px;
+				display: inline-block;
+				height: 40px;
+				width: 520px;
+				margin-left: 20px;
+				position: absolute;
+			}
+			#progressBar{
+				margin-top: 5px;
+				height: 2px;
+				border: 1px solid #5f5f5f;
+				border-radius: 2px;
+				position:relative;
+				cursor: pointer;
+			}
+			#progress{
+				height: 2px;
+				width: 0px;
+				background-color: #CCCCCC;
+				border-radius: 2px;
+			}
+			#dot{
+				border-radius: 50%;
+				width: 10px;
+				height: 10px;
+				position: absolute;
+				top: -4px;
+				left: -4px;
+				background-color: #f10cde;
+				cursor: pointer;
+			}
+			#dot:hover{
+				box-shadow: 0 0 3px #fff; 
+				background-color: #df0964;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="center">
+			<div id="bg">
+				<div>
+					<div id="control">
+						<img class="tb" src="img/tb.jpeg" alt="" />
+						<span id="musicName"></span>
+						<input type="button" class="lest" onclick="lest()" value="" />
+						<input type="button" id="playBtn" value="" />
+						<input type="button" class="next" onclick="next()" value="" />
+						<div id="divRight">
+							<div><span id="currentTime">00:00</span>/<span id="duration">00:00</span></div>
+							<div id="progressBar"><div id="progress"></div><div id="dot"></div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<script type="text/javascript">
+		var adoArr = ["Undo.mp3","beautiful day.mp3","Beautiful In White.mp3","I Say Yeah.mp3","It's My Life.mp3","Nothing's Gonna Change My Love For You.mp3","Up.mp3","Welcome To The City.mp3","镜心之歌.mp3","莫失莫忘.mp3","七月上.mp3","我的天空.mp3","知夏.mp3"];
+		var ado = document.createElement('audio');
+		var control = document.getElementById('control');
+		var playBtn = document.getElementById('playBtn');
+		var musicName = document.getElementById('musicName');
+		var currentTime = document.getElementById('currentTime');
+		var duration = document.getElementById('duration');
+		var progressBar = document.getElementById('progressBar');
+		var progress = document.getElementById('progress');
+		var dot = document.getElementById('dot');
+		var bg = document.getElementById('bg');
+		var divRight = document.getElementById('divRight');
+		var musicNow=0;
+		var timer;
+		ado.src="music/"+adoArr[musicNow];
+		musicName.innerText="Undo";
+		playBtn.play=true;
+		
+		function playStyle(){
+			playBtn.style.backgroundPosition="-6px -66px";
+			playBtn.onmouseover=function(){
+					playBtn.style.backgroundPosition="-66px -66px"
+				}
+			playBtn.onmouseout=function(){
+					playBtn.style.backgroundPosition="-6px -66px"
+				}
+		}
+		
+		pauseStyle();
+		function pauseStyle(){
+			playBtn.style.backgroundPosition="-6px -6px"
+			playBtn.onmouseover=function(){
+					playBtn.style.backgroundPosition="-66px -6px"
+				}
+			playBtn.onmouseout=function(){
+					playBtn.style.backgroundPosition="-6px -6px"
+				}
+		}
+		
+		playBtn.onclick=function(){
+			clearInterval(timer)
+			if(playBtn.play){
+				ado.play();
+				time();
+				playBtn.play=false;
+				playStyle();
+			}else{
+				ado.pause();
+				playBtn.play=true;
+				pauseStyle();
+			}
+		}
+		
+	
+		function lest(){
+			musicNow--;
+			if(musicNow<0){
+				musicNow=adoArr.length-1;
+			}
+			changeMusic()
+		}
+		
+	
+		function next(){
+				musicNow++;
+			if(musicNow>=adoArr.length){
+				musicNow=0;
+			}
+			changeMusic()
+		}
+		
+		
+		
+		function changeMusic(){
+			clearInterval(timer);
+			ado.src="music/"+adoArr[musicNow];
+			musicName.innerText=adoArr[musicNow].substring(0,(adoArr[musicNow].indexOf(".")));
+			ado.play();
+			time();
+			if(playBtn.play){
+				playBtn.play=false;
+				playStyle();
+			}
+		}
+		
+		
+		function time(){
+			timer=setInterval(function(){
+				var t_m=Math.floor(ado.duration/60);
+					t_m<10?t_m="0"+t_m:t_m;
+				var t_s=Math.floor(ado.duration%60);
+					t_s<10?t_s="0"+t_s:t_s;
+				duration.innerText=t_m+":"+t_s;
+				var t_m=Math.floor(ado.currentTime/60);
+					t_m<10?t_m="0"+t_m:t_m;
+				var t_s=Math.floor(ado.currentTime%60);
+					t_s<10?t_s="0"+t_s:t_s;
+				currentTime.innerText=t_m+":"+t_s;
+				if(ado.ended){
+				clearInterval(timer);
+				next();
+				}
+			},500)
+			
+			timer2=setInterval(function(){
+				progress.style.width=ado.currentTime/ado.duration*progressBar.offsetWidth+"px";
+				dot.style.left=ado.currentTime/ado.duration*progressBar.offsetWidth-4+"px";
+			},33)
+			
+		}
+		
+		progressBar.onclick=function(e){
+			ado.currentTime=(e.clientX-bg.offsetLeft-divRight.offsetLeft-5)/progressBar.offsetWidth*ado.duration;
+		}
+		dot.onmousedown=function(){
+			document.addEventListener('mousemove',mouseMove);
+		}
+		document.onmouseup=function(){
+			document.removeEventListener('mousemove',mouseMove);
+		}
+		function mouseMove(e){
+        		ado.currentTime=(e.clientX-bg.offsetLeft-divRight.offsetLeft-5)/progressBar.offsetWidth*ado.duration;
+    		}
+	</script>
+</html>
