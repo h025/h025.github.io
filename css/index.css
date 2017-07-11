@@ -1,0 +1,211 @@
+body {
+	-webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    background-image: url(../img/bg2.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+span{
+	color: #08d861;
+}
+
+.center {
+	width: 1000px;
+	margin: auto;
+}
+
+#bg {
+	width: 1000px;
+	height: 700px;
+	position: absolute;
+	top: 100px;
+	background-image: url(../img/bg.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	box-shadow: 0 0 50px #666;
+}
+
+.bg {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(25, 25, 25, 0.2)
+}
+
+#control {
+	padding: 10px 0;
+	height: 50px;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	bottom: 0;
+}
+
+.lest,
+.next {
+	width: 36px;
+	height: 36px;
+	background-color: transparent;
+	border: none;
+	background-image: url(../img/btn.png);
+	background-repeat: no-repeat;
+	margin: 0 8px;
+}
+
+.lest {
+	background-position: 0 -143px;
+	margin-left: 18px;
+}
+
+.lest:hover {
+	background-position: -36px -143px;
+}
+
+.next {
+	background-position: -144px -143px;
+}
+
+.next:hover {
+	background-position: -180px -143px;
+}
+
+#playBtn {
+	width: 48px;
+	height: 48px;
+	border: none;
+	background-color: transparent;
+	background-image: url(../img/btn.png);
+	background-repeat: no-repeat;
+	background-position: -6px -6px;
+	border-radius: 50%;
+}
+
+#playBtn:hover {
+	box-shadow: 0 0 3px #fff;
+}
+
+#tb {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	position: absolute;
+	left: 30px;
+	bottom: 5px;
+	/*transform:rotate(180deg);*/
+}
+
+#musicName {
+	display: inline-block;
+	height: 20px;
+	width: 150px;
+	margin-left: 100px;
+	margin-bottom: -4px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#divRight {
+	padding: 5px;
+	display: inline-block;
+	height: 40px;
+	width: 390px;
+	margin-left: 20px;
+	position: absolute;
+}
+
+#progressBar {
+	margin-top: 5px;
+	height: 2px;
+	border: 1px solid #5f5f5f;
+	border-radius: 2px;
+	position: relative;
+	cursor: pointer;
+}
+
+#progress {
+	height: 2px;
+	width: 0px;
+	background-color: #CCCCCC;
+	border-radius: 2px;
+}
+
+#dot {
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	top: -4px;
+	left: -4px;
+	background-color: #f10cde;
+	cursor: pointer;
+}
+
+#dot:hover {
+	box-shadow: 0 0 3px #fff;
+	background-color: #df0964;
+}
+
+#playingSytle {
+	padding: 10px;
+	width: 95PX;
+	height: 30px;
+	display: inline-block;
+}
+
+#playingSytle>div {
+	height: 16px;
+	width: 16px;
+	display: inline-block;
+	cursor: pointer;
+}
+#voice{
+	margin-right: 20px;
+	margin-left: 25px;
+	background-image: url(../img/btn.png);
+	background-repeat: no-repeat;
+	background-position: -32px -195px;
+}
+#pstyle{
+	background-image: url(../img/btn.png);
+	background-repeat: no-repeat;
+	background-position: -32px -179px;
+}
+#voiceBox{
+	height: 130px;
+	width: 40px;
+	padding: 10px 0;
+	background-color: rgba(51,32,149,0.5);
+	border-radius: 30px;
+	position: absolute;
+	bottom: 60px;
+	right: 509px;
+	display: none;
+}
+#voiceBar {
+	width: 2px;
+	border: 1px solid #5f5f5f;
+	border-radius: 2px;
+	height: 128px;
+	margin:0 auto;
+	overflow: hidden;
+}
+#voiceProgress{
+	width: 2px;
+	border-radius: 2px;
+	height: 128px;
+	background-color: #ccc;
+}
+#voiceDot{
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	top: 6px;
+	left: 15px;
+	background-color: #f10cde;
+	cursor: pointer;
+}
+
